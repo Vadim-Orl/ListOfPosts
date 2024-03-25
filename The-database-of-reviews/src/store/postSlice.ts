@@ -1,13 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IPost } from "../type";
+import { postApi } from "./myApi";
 
+type IInitialState = {
+    posts: IPost[]
+    size: string | null | undefined,
+    page: number
+}
+const initialState:IInitialState = {
+    posts: [],
+    size: '1000',
+    page: 1
 
-const initialState: IPost[] = [];
+}
 
 const postSlice = createSlice({
     name: '@posts',
     initialState,
-    reducers: {}
+    reducers: {
+        incrementPage(state) {
+            state.page++;
+          },
+    },
+    extraReducers: (builder) => {
+        builder.addMatcher(
+          postApi.endpoints.getPosts.matchFulfilled,
+          (state, { payload }) => {
+            state.posts = state.posts.concat(payload)
+            console.log(state.posts)
+          },
+        )
+    }
 });
 
 export default postSlice.reducer;
+export const { incrementPage } = postSlice.actions

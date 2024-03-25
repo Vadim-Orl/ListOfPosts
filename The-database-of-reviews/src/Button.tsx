@@ -1,7 +1,8 @@
 
 type ButtonProps = {
     children: string,
-    id: string
+    id?: string
+    onclick?: () => void;
 }
 
 

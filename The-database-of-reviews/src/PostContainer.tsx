@@ -2,60 +2,60 @@ import { FC, useEffect, useState } from "react";
 import { postApi } from "./store/myApi";
 import { IPost } from "./type";
 import { PostItem } from "./Post";
+import { Button } from "./Button";
+// import { Link, Navigate } from "react-router-dom";
+// import { AppRoute } from "./utils";
+import { useNavigate } from "react-router-dom";
 
 export const PostContainer: FC = () => {
-    const [currentPostStart,setCurrentPostStart]=useState(1)
-    const [postsArr, setPostsArr] = useState([]);
+    const navigate = useNavigate();
+    console.log()
 
-    const {data:posts, isLoading, isSuccess} = postApi.useGetPostsQuery({limit:10 * currentPostStart, start:0})
+    const [page, setPage] = useState(1);
+    const { data, isLoading, isFetching} = postApi.useGetPostsQuery({limit: 20, pageNumber: page})
 
-    const [isMyFetching, setIsFetchingDown] = useState(false)
-    const [isMyFetchingUp, setIsMyFetchingUp] = useState(false)
+    const posts = data?.posts || [];
+    const size = Number(data?.size) || 0;
 
-    useEffect(()=>{
-        if(isMyFetching){
-            setCurrentPostStart(prev=>{
-                return prev<102 ? prev+1 : prev
-            })
-            setIsFetchingDown(false)  
-        }
-    },[isMyFetching])
+    useEffect(() => {
+        const onScroll = () => {
+          const scrolledToBottom =
+            window.innerHeight + window.scrollY >= document.body.offsetHeight;
+          if (scrolledToBottom && !isFetching) {
 
-    useEffect(()=>{
-    if(isMyFetchingUp) {
-        setCurrentPostStart(prev=>{
-            return prev>0 ? prev-1 : prev
-        })
-        setIsMyFetchingUp(false)  
-    }
-    },[isMyFetchingUp])
-
-    useEffect(()=>{
-      document.addEventListener('scroll',scrollHandler)
-      return ()=>{
-        document.removeEventListener('scroll',scrollHandler)
-        console.log('remove')
-      }
-    },[])
-
-    const scrollHandler=(e:any):void=>{
-        const docScroll = e.target.documentElement;
-        if (!isSuccess) {
-            if(docScroll.scrollTop < 50) {
-                setIsMyFetchingUp(true)
-            }
+            if ((page * 10) < size ) {
+                setPage(page + 1);
+            } 
+          }
+        };
     
-            if(docScroll.scrollHeight - docScroll.scrollTop - window.innerHeight < 50) {
-                    setIsFetchingDown(true)
-                    window.scrollTo(0, (docScroll.scrollHeight + docScroll.scrollTop));
-                }
+        document.addEventListener("scroll", onScroll);
+    
+        return function () {
+          document.removeEventListener("scroll", onScroll);
+        };
+      }, [page, isFetching]);
+
+      const handleClick = (e: any) => {
+        if (e.target.tagName === 'BUTTON') {
+            console.log('id');
+            navigate("/posts/3")
         }
-       
-    }
+      }
+
     return (
         <div>
-            <div className='post__list'>
-                {posts?.map((post: IPost)=><PostItem key={post.id} post={post}/>)}
+            <div className='post__list' onClick={handleClick}>
+                {Array.isArray(posts) && posts.map((post: IPost) => {
+                    // console.log(post.id + 'hello')
+                    return (
+                        <>
+                            <PostItem key={post.id} post={post}/>
+                            {/* <Button key={`button${post.id}`} id={String(post.id)} >Постомтреть</Button> */}
+                        </>
+                    )}
+                        
+                )}
             </div>
             {isLoading&&<div>Загрузка данных</div>}
         </div>

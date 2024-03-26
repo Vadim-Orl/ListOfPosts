@@ -1,67 +1,56 @@
-import { FC, useEffect, useState, useMemo } from "react";
+import { FC, useEffect} from "react";
 import { postApi } from "./store/myApi";
 import { IPost } from "./type";
 import { PostItem } from "./Post";
 import { Button } from "./Button";
-// import { Link, Navigate } from "react-router-dom";
-import { AppRoute } from "./utils";
-import { useLocation, useNavigate } from "react-router-dom";
-import { store } from "./store/store";
+import { AppRoute, COUNT_POST_FOR_LIST } from "./utils";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "./store/redux-hook";
 import { incrementPage } from "./store/postSlice";
 
 export const PostContainer: FC = () => {
-    const location = useLocation()
     const navigate = useNavigate();
-    // let page = 0;
-    useEffect(()=>{
-    }, [])
-    const page = useAppSelector((store) => store.posts.page);
+    const page = useAppSelector((store) => store.data.page);
+    const dataPost = (useAppSelector((store) => store.data.posts))
+    const sizePost = Number(useAppSelector((store) => store.data.size))
     
-    // const [page, setPage] = useState(1);
-    // const page = 2;
-    const { data, isLoading, isFetching} = postApi.useGetPostsQuery({limit: 10, pageNumber: page})
-    const dataPost = (useAppSelector((store) => store.posts))
-    console.log('11111111111111')
-    console.log(dataPost.posts)
-    // const posts = data?.posts || [] ;
-
-    // const size = Number(data?.size) || 0;
-    console.log(page + 'psge')
+    const {isLoading, isFetching} = postApi.useGetPostsQuery({limit: COUNT_POST_FOR_LIST, pageNumber: page})
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         const onScroll = () => {
-          const scrolledToBottom =  window.innerHeight + window.scrollY >= document.body.offsetHeight;
-          console.log(scrolledToBottom)
-          console.log('scrolledToBottom')
-          if (scrolledToBottom && !isFetching) {
+          const scrolledToBottom =  window.innerHeight + window.scrollY >= (document.body.offsetHeight - 10);
 
-            if ((page * 10) < 300 ) {
+          if (scrolledToBottom && !isFetching) {
+            if ((page * COUNT_POST_FOR_LIST) < sizePost ) {
               dispatch(incrementPage())
             } 
           }
         };
     
         document.addEventListener("scroll", onScroll);
-        console.log('hokkkkkkke')
+
         return function () {
           document.removeEventListener("scroll", onScroll);
         };
-      }, [page, isFetching, location.key]);
+      }, [page, isFetching]);
 
-      const handleClick = (e: any) => {
-        if (e.target.tagName === 'BUTTON') {
-            console.log('id');
-            navigate(`${AppRoute.Posts}${e.target.id}`)
+      const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        
+        if (e.target instanceof Element){
+          if (e.target.tagName === 'BUTTON') {
+            const button = e.target as HTMLButtonElement
+              console.log('id');
+              navigate(`${AppRoute.Posts}${button.id}`)
+          }
         }
       }
 
     return (
-        <div>
+      <div>
             <div className='post__list' onClick={handleClick}>
-                {Array.isArray(dataPost.posts) && dataPost.posts.map((post: IPost) => {
-                    // console.log(post.id + 'hello')
+                {dataPost.map((post: IPost) => {
                     return (
                         <>
                             <PostItem key={post.id} post={post}/>
@@ -71,7 +60,7 @@ export const PostContainer: FC = () => {
                         
                 )}
             </div>
-            {isLoading&&<div>Загрузка данных</div>}
+            {(isLoading) && <div>Загрузка данных</div>}
         </div>
     );
 };

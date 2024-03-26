@@ -2,12 +2,12 @@
 type ButtonProps = {
     children: string,
     id?: string
-    onclick?: () => void;
+    onClick?: ()=> void;
 }
 
 
 export function Button({children, ...props}: ButtonProps) {
     return (
-        <button {...props}>{children}</button>
+        <button {...props} type="button">{children}</button>
     )
 }

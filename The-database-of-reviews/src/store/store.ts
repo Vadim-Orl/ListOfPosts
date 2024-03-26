@@ -4,7 +4,7 @@ import postReducer from './postSlice';
 
 const rootReducer= combineReducers({
   [postApi.reducerPath]:postApi.reducer,
-  posts: postReducer,
+  data: postReducer,
 })
 
 export const store = configureStore({

@@ -4,3 +4,5 @@ export enum AppRoute {
     Posts = '/posts/',
     Comments = '/comments',
 }
+
+export const COUNT_POST_FOR_LIST = 10;

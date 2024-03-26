@@ -9,7 +9,7 @@ type IInitialState = {
 }
 const initialState:IInitialState = {
     posts: [],
-    size: '1000',
+    size: '100',
     page: 1
 
 }
@@ -26,8 +26,9 @@ const postSlice = createSlice({
         builder.addMatcher(
           postApi.endpoints.getPosts.matchFulfilled,
           (state, { payload }) => {
-            state.posts = state.posts.concat(payload)
-            console.log(state.posts)
+              console.log(payload)
+            state.size = payload.size
+            state.posts = state.posts.concat(payload.posts)
           },
         )
     }

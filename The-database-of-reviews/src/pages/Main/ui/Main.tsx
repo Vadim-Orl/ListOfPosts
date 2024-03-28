@@ -24,12 +24,12 @@ export function Main() {
 				} 
 			}
 		};
-		
+
 		const debounceScroll = debounce(onScroll)
 		document.addEventListener('scroll', debounceScroll);
 
 		return function () {
-			document.removeEventListener('scroll', onScroll);
+			document.removeEventListener('scroll', debounceScroll);
 		};
 	}, [page, isFetching]);
 

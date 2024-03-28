@@ -16,27 +16,18 @@ interface PostContainerProps {
 export function PostsList({listPosts, isLoading}: PostContainerProps) {
     const navigate = useNavigate();
    
-
-      const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        e.preventDefault()
-
-        if (e.target instanceof Element){
-          if (e.target.tagName === 'BUTTON') {
-            const button = e.target as HTMLButtonElement
-              console.log('id');
-              navigate(`${AppRoute.Posts}${button.id}`)
-          }
-        }
-      }
+    const handleClick = (postId: number) => {
+            navigate(`${AppRoute.Posts}${postId}`)
+    }
 
     return (
       <div>
-        <div className='post__list' onClick={handleClick}>
+        <div className='post__list'>
             {listPosts.map((post: Post) => {
                 return (
-                    <div className='post__item'>
-                        <PostItem key={post.id} post={post}/>
-                        <Button key={`button${post.id}`} id={String(post.id)} >Постомтреть</Button>
+                    <div className='post__item' key={post.id}>
+                        <PostItem post={post}/>
+                        <Button key={`button${post.id}`} onClick={()=>handleClick(post.id)} >Постомтреть</Button>
                     </div>
                 )}
 

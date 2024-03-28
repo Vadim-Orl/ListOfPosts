@@ -4,7 +4,6 @@ import { incrementPage } from '../../../widgets/PostsList/api/postSlice';
 import { PostsList } from '../../../widgets/PostsList/ui/PostsList';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks@deprecated';
 import { widgetsPostListApi } from '../../../widgets/PostsList/api/widgetsPostListApi';
-import { debounce } from '../../../shared/model/helpers';
 
 export function Main() {
 	const page = useAppSelector((store) => store.data.page);

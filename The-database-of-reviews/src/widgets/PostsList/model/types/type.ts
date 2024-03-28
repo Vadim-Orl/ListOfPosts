@@ -1,6 +1,7 @@
-import { IPost } from "../../../../types/type";
+import { Post } from "../../../../entities/PostItem";
+
 
 export interface Result {
-    posts: IPost[],
+    posts: Post[],
     size:  string | null | undefined
 }

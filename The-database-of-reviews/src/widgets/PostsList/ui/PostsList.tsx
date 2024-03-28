@@ -4,8 +4,8 @@ import './PostsList.css'
 import { AppRoute} from "../../../app/config/utils";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../shared/ui";
-import { PostDetails } from "../../../entities/PostDetails";
 import { Post } from "../../../entities/PostDetails/model/type";
+import { PostItem } from '../../../entities/PostItem';
 
 
 interface PostContainerProps {
@@ -35,7 +35,7 @@ export function PostsList({listPosts, isLoading}: PostContainerProps) {
             {listPosts.map((post: Post) => {
                 return (
                     <div className='post__item'>
-                        <PostDetails key={post.id} post={post}/>
+                        <PostItem key={post.id} post={post}/>
                         <Button key={`button${post.id}`} id={String(post.id)} >Постомтреть</Button>
                     </div>
                 )}

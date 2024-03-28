@@ -1,4 +1,4 @@
-import { Post } from "../model/type";
+import { Post } from '../model/type';
 
 
 interface IPostItemProps{

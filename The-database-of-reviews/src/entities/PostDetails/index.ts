@@ -1,2 +1,2 @@
-export { useGetPostByIdQuery } from './api/entitiesPostDetailsApi'
-export { PostDetails } from './ui/PostDetails'
+export { useGetPostByIdQuery } from './api/entitiesPostDetailsApi';
+export { PostDetails } from './ui/PostDetails';

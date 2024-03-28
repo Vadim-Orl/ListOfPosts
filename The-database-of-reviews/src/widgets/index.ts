@@ -1,2 +1,2 @@
 
-export {PostsList} from './PostsList/ui/PostsList'
+export {PostsList} from './PostsList/ui/PostsList';

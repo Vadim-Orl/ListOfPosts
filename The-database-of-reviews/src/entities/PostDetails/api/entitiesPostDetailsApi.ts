@@ -12,6 +12,6 @@ export const entitiesPostDetailsApi = baseApi.injectEndpoints({
             })
         })
     })
-})
+});
 
 export const { useGetPostByIdQuery } = entitiesPostDetailsApi;

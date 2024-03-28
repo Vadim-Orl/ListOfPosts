@@ -3,7 +3,7 @@ import './PostsList.css'
 
 import { AppRoute} from "../../../app/config/utils";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../../shared/ui";
+import { Button, Loading } from "../../../shared/ui";
 import { Post } from "../../../entities/PostDetails/model/type";
 import { PostItem } from '../../../entities/PostItem';
 
@@ -32,7 +32,7 @@ export function PostsList({listPosts, isLoading}: PostContainerProps) {
                 )}
             )}
         </div>
-        {(isLoading) && <div>Загрузка данных</div>}
+        {(isLoading) && <Loading />}
       </div>
     );
 }

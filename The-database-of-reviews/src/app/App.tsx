@@ -1,19 +1,15 @@
 // import { Routes, Route, HashRouter } from "react-dom"
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {RouterProvider} from 'react-router-dom';
 import './App.css';
-import { AppRoute } from './config/utils';
-import { Post } from '../pages/Post/ui/Post';
-import { Main } from '../pages/Main/ui/Main';
+import { appRouter } from './AppRouter';
+import { Provider } from 'react-redux';
+import { store } from './AppStore';
 
 function App() {
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path={AppRoute.Main} element={<Main />} />
-				<Route path={AppRoute.Post} element={<Post />} />
-				<Route path="*" element={<h2>Ресурс не найден</h2>} />
-			</Routes>
-		</BrowserRouter>
+		<Provider store={store}>
+			<RouterProvider router={appRouter()} />
+		</Provider>
 	);
 }
 

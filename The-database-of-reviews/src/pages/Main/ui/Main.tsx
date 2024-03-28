@@ -16,7 +16,6 @@ export function Main() {
 
 	useEffect(() => {
 		const onScroll = () => {
-			console.log('alarm')
 			const scrolledToBottom =  window.innerHeight + window.scrollY >= (document.body.offsetHeight - 10);
 
 			if (scrolledToBottom && !isFetching) {

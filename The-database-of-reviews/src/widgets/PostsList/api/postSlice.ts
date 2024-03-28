@@ -26,7 +26,6 @@ const postSlice = createSlice({
         builder.addMatcher(
           widgetsPostListApi.endpoints.getPosts.matchFulfilled,
           (state, { payload }) => {
-              console.log(payload)
             state.size = payload.size
             state.posts = state.posts.concat(payload.posts)
           },

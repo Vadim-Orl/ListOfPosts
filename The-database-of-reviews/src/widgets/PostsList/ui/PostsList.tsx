@@ -30,7 +30,6 @@ export function PostsList({listPosts, isLoading}: PostContainerProps) {
                         <Button key={`button${post.id}`} onClick={()=>handleClick(post.id)} >Постомтреть</Button>
                     </div>
                 )}
-
             )}
         </div>
         {(isLoading) && <div>Загрузка данных</div>}

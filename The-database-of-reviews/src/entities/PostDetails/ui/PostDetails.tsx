@@ -6,7 +6,6 @@ interface PostDetailsProps {
     post: Post
 }
 
-
 export function PostDetails({post}: PostDetailsProps){
     return (
         <article className='post'>

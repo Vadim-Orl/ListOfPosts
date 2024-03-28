@@ -1,0 +1,13 @@
+.post__item--dsc {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    justify-content:space-between ;
+    align-items: center;
+    min-height: 60px;
+    width: 100%;
+
+    background-color: rgb(235, 195, 147);
+    border: 1px solid rgb(137, 130, 130);
+    border-radius: 10px;
+    max-width: 600px;
+}

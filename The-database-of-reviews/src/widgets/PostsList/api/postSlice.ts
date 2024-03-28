@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IPost } from "../type";
-import { postApi } from "./myApi";
+import { widgetsPostListApi } from "./widgetsPostListApi";
+import { Post } from "../../../entities/PostDetails/model/type";
 
 type IInitialState = {
-    posts: IPost[]
+    posts: Post[]
     size: string | null | undefined,
     page: number
 }
+
 const initialState:IInitialState = {
     posts: [],
     size: '100',
     page: 1
-
 }
 
 const postSlice = createSlice({
@@ -24,7 +24,7 @@ const postSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addMatcher(
-          postApi.endpoints.getPosts.matchFulfilled,
+          widgetsPostListApi.endpoints.getPosts.matchFulfilled,
           (state, { payload }) => {
               console.log(payload)
             state.size = payload.size

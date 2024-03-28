@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  padding: 0;
+  /* height: 100%; */
+}
+
+
+#root {
+  margin: 30px;
+  padding: 30px;
+  padding-top: 30px;
+  text-align: center;
+  background-color: rgb(194, 192, 191);
+  font-family: 'Courier New', Courier, monospace;
+}
+

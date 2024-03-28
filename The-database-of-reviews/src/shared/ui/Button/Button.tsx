@@ -1,3 +1,4 @@
+import './Button.css'
 
 type ButtonProps = {
     children: string,

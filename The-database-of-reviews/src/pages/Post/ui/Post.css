@@ -1,0 +1,11 @@
+.container__postItem {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    height: 100%;
+    /* height: 700px; */
+}
+
+.container__postItem button {
+    margin-left: 30px;
+}

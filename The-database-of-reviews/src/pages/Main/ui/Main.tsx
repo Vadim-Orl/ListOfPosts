@@ -25,8 +25,7 @@ export function Main() {
 			}
 		};
     
-		const debounceScroll = debounce(onScroll)
-		document.addEventListener('scroll', debounceScroll);
+		document.addEventListener('scroll', onScroll);
 
 		return function () {
 			document.removeEventListener('scroll', onScroll);
